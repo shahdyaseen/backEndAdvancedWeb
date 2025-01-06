@@ -5,7 +5,6 @@ const mysql = require("mysql2");
 const app = express();
 const port = 4000;
 
-// إعداد الاتصال بقاعدة البيانات
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -15,7 +14,6 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-// تعريف الـ schema
 const typeDefs = gql`
   type Village {
     id: ID!
@@ -190,15 +188,14 @@ const resolvers = {
           "", // age
           "", // gender
           1.0, // growthRate
-          1    // Urban (افتراضيًا 1 يمكن تحديثه لاحقًا)
+          1    // Urban 
         ];
     
         connection.query(query, values, (err, results) => {
           if (err) reject(err);
     
-          // إرجاع البيانات المدخلة بعد الإضافة
           const newVillage = {
-            id: 10, // الحصول على الـ ID الذي تم إضافته
+            id: 10, 
             name,
             Region,
             land,
@@ -206,11 +203,11 @@ const resolvers = {
             Longitude,
             Tags,
             img,
-            population: 0, // قيمة افتراضية، يمكن تحديثها لاحقًا
+            population: 0, 
             age: "",
             gender: "",
             growthRate: 1.0,
-            Urban: true, // افتراضيًا
+            Urban: true, 
           };
     
           resolve(newVillage);
@@ -223,7 +220,6 @@ const resolvers = {
   },
 };
 
-// إعداد Apollo Server
 const server = new ApolloServer({ typeDefs, resolvers });
 
 async function startServer() {
